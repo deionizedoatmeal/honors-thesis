@@ -8,3 +8,4 @@ By implementing recently developed formalism of multiscatter capture in the stel
 Furthermore I use `MESA` models to calculate DM temperatures and evaporation rates in regions of interest.
 Next, I present early results on the influence DM heating has on stellar structure and evolution.
 Finally I explore whether or not `MESA` models of DM powered stars may be used to place competitive bounds on important DM properties.
+### Check out the full paper [here](./paper/ms.pdf)!
