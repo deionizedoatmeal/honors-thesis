@@ -1,0 +1,139 @@
+&star_job
+
+      show_log_description_at_start = .false.
+      pgstar_flag = .false.
+      
+      ! PATHS
+      history_columns_file = 'history_columns.list'
+      profile_columns_file = 'profile_columns.list'
+      ! eosDT_cache_dir = '/home/ibania/mesa_caches/eosDT_cache'
+      ! eosPT_cache_dir = '/home/ibania/mesa_caches/eosPT_cache'
+      ! eosDE_cache_dir = '/home/ibania/mesa_caches/eosDE_cache'
+      ! ionization_cache_dir = '/home/ibania/mesa_caches/ionization_cache'
+      ! kap_cache_dir = '/home/ibania/mesa_caches/kap_cache'
+      ! rates_cache_dir = '/home/ibania/mesa_caches/rates_cache'
+
+      ! PRE MAIN SEQUENCE
+      create_pre_main_sequence_model = .true.    
+
+      ! pre_ms_relax_num_steps = 400
+      ! pre_ms_T_c = 8d4
+      
+      ! OPACITY AND METALICITY
+      kappa_file_prefix = 'a09'
+      initial_zfracs = 6
+
+      ! use density as primary variable
+      ! change_lnPgas_flag = .false.
+      ! new_lnPgas_flag = .false.
+   
+      ! HYDRODYNAMICS
+      ! change_initial_v_flag = .true.
+      ! change_v_flag = .false.
+      ! new_v_flag = .true.
+
+/ ! end of star_job namelist
+&controls
+
+      ! RUN DETAILS
+      log_directory = 'LOGS/14.16.1d3'
+      star_history_name = 'history_14.16.1d3.data'
+      history_interval = 1
+      profile_interval = 20
+      terminal_interval = 10
+      max_num_profile_models = 400
+      write_header_frequency = 10
+
+      ! NO LIMIT ON RELAX NUMBER OF BACKUPS/RETRIES
+      relax_max_number_retries = -1
+      relax_max_number_backups = -1
+
+      ! INITIAL STAR
+      initial_mass = 1d3
+      initial_z = 2.0d-16
+      initial_y = 0.24d0
+
+      ! STOPING CONDITON
+      ! stop_near_zams = .true.
+      ! xa_central_lower_limit_species(1) = 'h1'
+      ! xa_central_lower_limit(1) = 1.0e-6
+      xa_central_lower_limit_species(1) = 'he4'
+      xa_central_lower_limit(1) = 1.0e-6
+
+      ! DARK MATTER PARAMS
+      use_other_energy_implicit = .true.  ! use heating from DM capture
+      X_CTRL(1) = 1d14
+      X_CTRL(2) = 1d16
+      X_CTRL(3) = 1.0d6                   ! vbar:     inherent DM velocity [cm/s]
+      X_LOGICAL_CTRL(1) = .TRUE.          ! sigma_xenon: use the XENON bounds?
+
+      ! USE dedt FORM OF ENERGY CONVERVATION
+      ! DO NOT USE dLdm FORM OF ENGERY CONSERVATION EVER
+      use_dedt_form_of_energy_eqn = .true.
+      min_cell_energy_fraction_for_dedt_form = 0   ! default 1d-10
+      use_correction_for_KE_plus_PE_with_eps_grav_in_energy_eqn = .true.
+      use_gold_tolerances = .false.
+
+      ! OPACITIES
+      use_Type2_opacities = .true.     ! defualt .false.
+      Zbase = 1.0d-12                  ! default -1
+
+      ! ATMOSPHERE
+      atm_option = 'table'              ! default T_tau 
+      atm_table = 'photosphere'
+
+      ! L_EDD STUFF
+      super_eddington_scaling_factor = 1        !!! default 0
+      super_eddington_wind_Ledd_factor = 1      ! default 1
+      wind_boost_full_off_L_div_Ledd = 1d0      !!! default 1.5d0
+      wind_boost_full_on_L_div_Ledd = 1.5d0     !!! default 5
+      super_eddington_wind_max_boost = 10       !!! default 1
+      trace_super_eddington_wind_boost = .true.
+
+      ! WIND
+      Dutch_scaling_factor = 0.8  ! 0.8 for nonrotating models
+      hot_wind_scheme = 'Dutch'
+      cool_wind_RGB_scheme = 'Dutch'
+      cool_wind_AGB_scheme = 'Dutch'
+      Dutch_wind_lowT_scheme = 'van Loon'
+      Dutch_wind_lowT_scheme = 'de Jager'
+
+      ! MLT
+      mixing_length_alpha = 1.5  ! default 2
+      MLT_option = 'Henyey'      ! default 'Cox'
+
+      ! MLT++ superadibaticity (see 7.2 of Paxton et. al 2013)
+      okay_to_reduce_gradT_excess = .true.   !!! default .false.
+      ! gradT_excess_f1 = 1d-4                 ! default 1d-4
+      gradT_excess_f2 = 1d-2                 !!! default 1d-3
+      ! gradT_excess_age_fraction = 0.9d0      ! default 0.9d0
+      ! gradT_excess_lambda1 = 1.0d0           ! default 1.0d0
+      ! gradT_excess_beta1 = 0.35d0            ! default 0.35d0
+      ! gradT_excess_lambda2 = 0.5d0           ! default 0.5d0
+      ! gradT_excess_beta2 = 0.25d0            ! default 0.25d0
+      ! gradT_excess_max_change = -1d0         ! default -1d0
+      ! gradT_excess_dlambda = 0.1d0           ! default 0.1d0
+      ! gradT_excess_dbeta = 0.1d0             ! default 1d0
+      ! gradT_excess_max_center_h1 = 1d0       ! default 1d0
+      ! gradT_excess_min_center_he4 = 0d0      ! default 0d0
+      ! gradT_excess_max_logT = 8              ! default 8
+      ! gradT_excess_min_log_tau_full_on = -99    ! default -99
+      ! gradT_excess_max_log_tau_full_off = -99   ! default -99
+
+      ! SEMICONVECTION
+      use_Ledoux_criterion = .true.       ! default .false.
+      alpha_semiconvection = 0.01         ! default 0
+      thermohaline_coeff = 2.0            ! default 0
+      thermohaline_option = 'Kippenhahn'  ! default 'Kippenhahn'
+
+      ! TIMESTEP RESOLUTION
+      ! min_timestep_limit = 1d-12 ! (seconds)
+
+      ! MESH RESOLUTION
+      ! mesh_delta_coeff = 0.1 ! roughly increase the # of grid points 10 times
+      ! max_allowed_nz = 100000 ! let MESA choose a stupidly high # of grid points if it wants
+
+
+/ ! end of controls namelist
+
+/ ! end of pgstar namelist
