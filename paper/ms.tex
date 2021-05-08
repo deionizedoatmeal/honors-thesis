@@ -25,6 +25,13 @@
 \usepackage{aas_macros}
 \useunder{\uline}{\ul}{}
 
+
+\usepackage{lettrine}
+\input Zallman.fd
+\renewcommand{\LettrineFontHook}{\usefont{U}{Zallman}{xl}{n}}
+\LettrineTextFont{\itshape}
+\setcounter{DefaultLines}{3}%
+
 \newcommand{\unit}[1]{\ensuremath{\, \mathrm{#1}}}
 \newcommand{\vbar}{\bar{v}}
 \newcommand{\vesc}{v_{esc}}
@@ -36,7 +43,6 @@
 \newcommand{\Ncut}{N_{cut}}
 \newcommand{\vn}{v_{N}}
 \newcommand{\expmess}{\exp{\left(-\frac{3(\vn^2-\vesc^2)}{2\vbar^2}\right)}}
-
 
 \title{\boldmath Dark Matter in Population III Stars}
 
@@ -58,7 +64,7 @@
     \\After scattering off nucleons, Dark matter (DM) particles may lose enough energy to become gravitationally bound to an astrophysical object.
     In order to become captured in this manner, super heavy DM may need to experience a number of successive scattering events.
     Once captured within a star, it is possible for DM to continue to upscatter off of nucleons and gain enough energy to escape the potential well in a process known as evaporation.
-    In the case of captured self-annihilating DM, where DM capture rates are high enough and DM evaporation rates low enough, it then becomes possible for heating from DM annihilations to be a significant source of energy production for Population III (Pop.~III) stars. 
+    In the case of captured self-annihilating DM it then becomes possible for heating from DM annihilations to be a significant source of energy production for Population III (Pop.~III) stars. 
     By implementing recently developed formalism of multiscatter capture in the stellar evolution code \texttt{MESA}, I model how Pop.~III stars react to heating from captured DM.
     Furthermore I use \texttt{MESA} models to calculate DM temperatures and evaporation rates in regions of interest.
     Next, I present early results on the influence DM heating has on stellar structure and evolution.
@@ -70,10 +76,10 @@
 % \flushbottom
 
 
-
+% \pagenumbering{gobble}
 \begin{section}{Motivating Dark Matter}
     %%% Galaxy Clusters %%%
-    In 1933, while studying the velocity dispersion of galaxies in the Coma Cluster, Fritz Zwicky used redshift data to calculate that the radial velocities of the component galaxies varied by up to 2000 km/s \cite{Zwicky:1933}.
+    \lettrine{I}{n} 1933, while studying the velocity dispersion of galaxies in the Coma Cluster, Fritz Zwicky used redshift data to calculate that the radial velocities of the component galaxies varied by up to 2000 km/s \cite{Zwicky:1933}.
     Based on approximations of the cluster's mass made with a standard mass-luminosity relation, Zwicky calculated via the virial theorem an expected velocity dispersion of only 80 km/s, a value more than an order of magnitude less then the observed dispersion.
 
     Zwicky realized that, for the cluster to be gravitationally stable, it and its component galaxies must be far larger than originally implied by mass to light ratios.
@@ -107,7 +113,7 @@
     More data corroborating the existence of Dark matter comes in the form of the Cosmic Microwave Background radiation (CMB).
     This light, observed in the microwave, was emitted when the universe was only 380,000 years old and had cooled enough for electrons and baryons to recombine.
     Recombination allowed photons trapped in the opaque primordial soup by Thompson scattering to decouple and travel unimpeded, until measured by our telescopes today \cite{Bertone:2018}.
-    The relic light of the CMB retains information that cosmologists are able to use to make inferences about the conditions in the early universe. Namely, anisotropies, or small variations in local temperatures, allowed for points of higher density around which matter could clump and large scale structure could form.
+    The relic light of the CMB retains information that cosmologists are able to use to make inferences about the conditions in the early universe. Namely, anisotropies, or small variations in local temperatures, are a signature of points of higher density around which matter could clump and large scale structure could form.
     The photons and baryons clumped in these local density variations experienced pressure oscillations around an equilibrium \cite{Eisenstein:2005}, and DM interacting only gravitationally settled to the center of the density variations.
     At the time of recombination and decoupling, the photons were no longer subjected to these oscillations, effectively freezing the scale and amplitude of the acoustic oscillations into the light of the CMB at 380,000 years.
     This is measurable in the form of acoustic peaks in the power spectrum of the CMB anisotropies. 
@@ -117,13 +123,13 @@
 
     %%% Other Evidence for Dark Matter %%%
     Other strong evidence for Dark matter includes the ongoing merger of the Bullet Cluster, where lensing measurements show Dark matter halos `overshooting' and moving past the resulting conglomeration of baryonic matter, which is slowed by frictional effects \cite{Clowe:2004}.
-    Using gravitational weak lensing, and the Sunyaev–Zeldovich effect (i.e.~inverse Compton scattering) astronomers can map both the distribution of DM and hot gas in the cluster, which provides a clear example of the non-electromagnetically interacting nature of Dark matter.
+    Using gravitational weak lensing, and the Sunyaev–Zeldovich effect (i.e.~the inverse Compton scattering CMB photons by hot gas in clusters) astronomers can map both the distribution of DM and hot gas in the cluster, which provides a clear example of the non-electromagnetically interacting nature of Dark matter.
     Even further evidence comes in the form of the large scale structure we see in the universe today.
     Numerical simulations consistently show that without a large component of Dark matter, it would have been impossible for the galaxies and clusters we see today to have evolved in only 14 Gyr \cite{Springel:2005}.
     Dark matter halos in the early universe provided a `cosmic scaffolding' around which protogalaxies and the first generations of stars could coalesce. 
 
     In an attempt to motivate the following research and impress upon the reader its importance,  I have summarized some of the most significant pieces of evidence supporting the existence of Dark matter, however this treatment is far from exhaustive.
-    Some additional notable supporting data are the Lambda Cold Dark matter model ($\Lambda$CDM), the relative elemental abundances produced during Big Bang Nucleosynthesis, and the presence of hot gas in the outer reaches of galaxy clusters. 
+    Additional support comes from the Lambda Cold Dark Matter model ($\Lambda$CDM), the relative elemental abundances produced during Big Bang Nucleosynthesis, and the presence of hot gas in the outer reaches of galaxy clusters. 
     $\Lambda$CDM requires the existence of a significant amount of Dark matter to balance out dark energy and provide a topologically flat universe for us to exist in.
     During the first 20 minutes of the universe, temperatures were high enough in order to fuse baryons into deuterium, helium, and lithium.
     This process is known as Big Bang Nucleosynthesis, and in order for models to accurately predict the abundances cosmologists observe, baryonic matter is limited to comprising only 5\% of the mass-energy of the universe \cite{Coc:2004}.
@@ -134,7 +140,7 @@
 \begin{section}{Dark Matter Particle Physics}
     As long as astronomers have known about the existence of Dark matter they have attempted to account for it with a variety of dim baryonic phenomena.
     In the early 20th century, when Dark matter only represented some limited discrepancies in the mass-luminosity ratios of large objects, many astronomers proposed a more rigorous accounting of cold gas and dust. 
-    Despite numerous attempts to provide a non-baryonic theory of Dark matter, by the 1970s it was apparent that astronomers were not any closer to accounting for the missing mass, while new observations were indicating that Dark matter was far more abundant than previously thought. 
+    Despite numerous attempts to provide a baryonic theory of Dark matter, by the 1970s it was apparent that astronomers were not any closer to accounting for the missing mass, while new observations were indicating that Dark matter was far more abundant than previously thought. 
 
     Some more contemporary attempts at explanations of Dark matter which avoid non-baryonic particles are Massive Astrophysical Compact Halo Objects (MACHOs) and Modified Newtonian Dynamics (MOND).
     MACHOs are a hypothetical class of objects ranging from rogue exoplanets to dim white dwarfs which are proposed to account for Dark matter measured in galaxies and clusters \cite{Bertone:2018}.
@@ -160,28 +166,59 @@
     \begin{equation}
         \Gamma = n\langle\sigma v\rangle.
     \end{equation}
-    If we consider a cold DM particle, by implying the condition of non-relativistic freeze out we find that a DM density parameter of $\Omega_\chi = 0.2$ produces a self-annihilation cross section of $\langle\sigma v\rangle \approx 3\times 10^{-26}$ cm$^3$ s$^{-1}$ \cite{Profumo}.
-    This number is often referred to as the `WIMP miracle' because it corresponds to the same scale as one would expect from a particle with $m_\chi = 200$ GeV that interacts electro-weakly.
+    Here, $\sigma$ is the cross section of the process responsible for DM production and $v$ is the relative velocity of the interaction.
+    If we consider a cold DM particle, the condition of non-relativistic freeze will require that
+    \begin{equation}
+        n_{f.o.} \sim \frac{T_{f.o.}^{2}}{M_{P} ~ \sigma},
+        \label{nfo}
+    \end{equation}
+    and the equilibrium number density $n$ will scale like
+    \begin{equation}
+        n \sim\left(m_{\chi} T\right)^{3 / 2} \exp \left(-\frac{m_{\chi}}{T}\right).
+        \label{neqfo}
+    \end{equation}
+    Here $M_p$ is the reduced Planck mass, $m_\chi$ is DM mass and $T_{f.o.}$ denotes freeze out temperature.
+    By applying Eq. \ref{nfo} and \ref{neqfo} we see
+    \begin{equation}
+        \sqrt{\frac{m_\chi}{T}} \cdot \exp\left[\frac{-m_\chi}{T}\right]=\frac{1}{m_{\chi} ~ M_{p} ~ \sigma},
+    \end{equation}
+    and since we are considering a cold particle by definition $\frac{m_\chi}{T} \gg 1$.
+    By plugging a range of DM masses and cross sections that one would expect of a particle which interacts electro-weakly, we find that
+    \begin{equation}
+        20 \lesssim \frac{m_\chi}{T_{f.o.}} \lesssim 50.
+    \end{equation}
+    If we then consider that the Dark matter density parameter can be written in terms of the freeze out condition
+    \begin{equation}
+        \Omega_\chi = \frac{T_0^3}{\rho_c ~ M_p ~ \sigma ~T_{f.o.}},
+    \end{equation}
+    where $T_0$ is the temperature today, and $\rho_c$ is the critical density of the universe.
+    By plugging in our constants and known cosmological parameters so that
+    \begin{equation}
+        \left(\frac{\Omega_{\chi}}{0.2}\right) \simeq \frac{m_\chi }{20~ T_{f.o.}}\left(\frac{10^{-8} \mathrm{GeV}^{-2}}{\sigma}\right),
+    \end{equation}
+    we find that a DM density parameter of $\Omega_\chi = 0.2$ produces a self-annihilation cross section of $\langle\sigma v\rangle \approx 3\times 10^{-26}$ cm$^3$ s$^{-1}$ \cite{Profumo}.
+    This number is often referred to as the `WIMP miracle' because it corresponds to the same scale as one would expect from a particle with $m_\chi \simeq 10^2$ GeV that interacts electro-weakly.
+    Furthermore $\Omega_\chi = 0.2$ is what we observe for the Dark matter component of the universe. 
     This class of particle, known as Weakly Interacting Massive Particles (WIMPs), was the favorite DM candidate particle up until fairly recently.
 
-    On appealing feature of many WIMPs particles is how they arise organically from various theories in particle physics.
+    One appealing feature of many WIMPs particles is how they arise organically from various theories in particle physics.
     Among the most prominent WIMP candidate particles are: the lightest supersymmetric particle implied by supersymmetry (SUSY), the Kaluza-Klein particle implied by a universal extra dimension (UED), or the lightest T-odd particle implied by little Higgs models.
     WIMPs will most likely have masses in the range of $10^9$ to $10^{12}$ eV \cite{Freese:2017dm}.
 
     Another promising particle candidate is the axion.
     The theoretical framework for axions arises from the strong-CP problem in particle physics independent of the astrophysical need for a Dark matter particle.
     Considerable work has already been performed in the pursuit of constraining the axion's mass \cite{Freese:2017dm}. If their mass is shown to lie between $10^{-3}$ and $10^{-6}$ eV, the axion may be a good Dark matter candidate \cite{Wilczek:1978}\cite{Weinberg:1978}. 
-    Besides WIMPs and axions, other proposed Dark matter candidates include super massive WIMPs known as WIMPzillas, self interacting DM (SIDM), strongly interacting massive particles (SIMPs), and asymmetric DM \cite{Freese:2017dm}.
+    Besides WIMPs and axions, other proposed Dark matter candidates include super massive WIMPs known as WIMPzillas \cite{Kolb:1999}, self interacting DM (SIDM) \cite{Carlson:1992}, strongly interacting massive particles (SIMPs) \cite{Hochberg:2014} \cite{Smirnov:2020}, and asymmetric DM \cite{Freese:2017dm}.
 
     Different DM models entail different methods of production and annihilation \cite{Ilie:2020popiii}, but the most common are p and s-wave annihilations where
     \begin{equation}
         \chi + \chi \to \text{SM} + \text{SM},
     \end{equation}
-    SIMP annihilation where
+    SIMP annihilation \cite{Hochberg:2014} where
     \begin{equation}
         \chi + \chi  + \chi \to \chi + \chi ,
     \end{equation}
-    and CoSIMP annihilation where
+    and CoSIMP annihilation \cite{Smirnov:2020} where
     \begin{equation}
         \chi + \chi + \text{SM} \to \chi + \text{SM}.
     \end{equation}
@@ -201,26 +238,36 @@
     %%% Direct Detection Experiments %%%
     Since the mid 1980s, astronomers and particle physicists alike have concerned themselves with detection of the particle responsible for the majority of the Dark matter in the universe.
     As the most favored DM candidates, WIMPs and axions have been the most sought after in direct detection, indirect detection and collider production experiments.
-    For WIMPs specifically, there have been a dozen or so attempts at direct detection, in a variety of underground laboratories around the world.
-    As a consequence of Earth's positioning in the Milky Way's Dark matter halo, we expect to see an annual modulation in detection events as we move into and out of the WIMP `wind' caused by the Sun's galactocentric motion.
+    For WIMPs specifically, there have been a dozen or so attempts at direct detection with many more in progress at time of writing.
+    As a consequence of Earth's positioning in the Milky Way's Dark matter halo, we expect to see an annual modulation in detection events as we move into and out of the WIMP `wind' caused by the Sun's galactocentric motion \cite{Drunkier:1986}.
     The actual mechanism of WIMP detection comes down to measuring the energy deposited by a transiting WIMP as it collides with detection materials such as cryogenic germanium crystals or a heavy noble gas.
-    As can be seen in \cite{Freese:2013}, the spin-independent DM-nucleon cross section, i.e.~the probability of a WIMP scattering off one of the atomic nuclei in the detector, will scale with the atomic mass squared.
-    This is the motivation for the use of atoms with heavy and inert nuclei in Dark matter detection experiments.
+    As can be seen in \cite{Drunkier:1986} and \cite{Freese:2013}, the DM-nucleon cross section, i.e.~the probability of a WIMP scattering off one of the atomic nuclei in the detector, will scale with the atomic mass squared with
+    \begin{equation}
+        \sigma_{\mathrm{SI}}=\frac{4}{\pi} \mu^{2}\left[Z f_{\mathrm{p}}+(A-Z) f_{\mathrm{n}}\right]^{2},
+    \end{equation}
+    for spin-independent scattering, and
+    \begin{equation}
+        \sigma_{\mathrm{SD}}=\frac{32 \mu^{2}}{\pi} G_{F}^{2} J(J+1) \left( \frac{1}{J}\left(a_{\mathrm{p}}\left\langle S_{\mathrm{p}}\right\rangle+a_{\mathrm{n}}\left\langle S_{\mathrm{n}}\right\rangle\right)\right)^{2},
+    \end{equation}
+    for spin-dependent.
+    Here $\mu$ is the WIMP-nucleus reduced mass, $Z$ is the number of protons in the nucleus, $A$ is the number of total nucleons, $G_F$ is the Fermi constant, and $J$ is the total spin of the nucleus.
+    $\langle S_{\mathrm{P}}\rangle$ and $\langle S_{\mathrm{n}}\rangle$ are the averaged spin contributions from protons and neutrons, where $f_p$, $f_n$, $a_p$ and $a_n$ are effective couplings to protons and neutrons.
+    This scaling is the motivation for the use of atoms with heavy and inert nuclei in Dark matter detection experiments.
 
     Another practical concern when detecting WIMPs are background counts from cosmic rays.
     The expected WIMP modulation signal pales in comparison to the noise of cosmic rays.
     Accordingly, detectors are located deep underground as a means of shielding, often in decommissioned mines.
     Despite this, a WIMP detection has remained elusive with all but one detector providing no statistically significant signal, and often excluding regions of the cross section-mass parameter space from the presence of a WIMP particle.
-    The Italian program, originally  DAMA/NaI and now in its latest iteration DAMA/LIBRA, is the only detector that has claimed to have detected WIMPs.
+    The Italian program, originally  DAMA/NaI and now in its latest iteration DAMA/LIBRA, is the only detector that has claimed to have detected WIMPs \cite{Bernabei:2008} \cite{Bernabei:2018}.
     DAMA, a crystal scintillator detector built out of NaI, has collected 10 years of statistically distinct modulation, either from a 10 GeV or an 80 GeV WIMP.
     This is in apparent conflict with the null results from other non-NaI detectors worldwide, as well as the COSINE-100 detector, the only other apparatus besides DAMA using NaI crystals for detection.
     The preliminary COSINE-100 results, published in 2018 and 2019, have yet to show evidence supporting the modulation signal claimed by DAMA, but also remain inconclusive about its validity until the detector can reach the necessary precision levels, hopefully within the next two years \cite{Cosine:2018} \cite{Cosine:2019}.
     Other notable experiments that have done considerable work to constrain the spin-independent parameter space are the XENON, CDMS, and LUX projects.
 
-    Other methods of WIMP detection involve probing the spin-dependent parameter space via the use of single nucleons as target material, or by particle generation via high energy colliders such as the LHC at CERN.
+    Other methods of WIMP detection involve probing the Dark matter parameter space via the use of single nucleons as target material, or by particle generation via high energy colliders such as the LHC at CERN.
     The net result of attempts at direct detection in the last 20 years are that the existence of a WIMP such as that predicted by supersymmetry theory or universal extra dimensions seems increasingly unlikely.
     This situation is only worsened by the fact that as particle physicists increase the sensitivities of their detectors to lower and lower cross sections, they approach the neutrino floor, a sensitivity at which any WIMP signal will become indistinguishable as detectors are lit up with background counts from neutrinos.
-    The short comings of direct detection have prompted astronomers to think about alternative ways to constrain the properties of Dark matter, either via indirect detection of gamma rays produced by Dark matter annihilations in the galactic core, or by measuring astrophysical properties of objects heated or influenced by Dark matter as proposed in \cite{Ilie:2020popiii} and \cite{Ilie:2020floor}.
+    The short comings of direct detection have prompted astronomers to think about alternative ways to constrain the properties of Dark matter, either via indirect detection of gamma rays produced by Dark matter annihilations in the galactic core (or nearby dwarf spheroidal satellite galaxies) or by measuring astrophysical properties of objects heated or influenced by Dark matter as proposed in  \cite{Ilie:2020popiii}, \cite{Leane:2021}, \cite{Ilie:2019} and \cite{Ilie:2020floor}.
 \end{section}
 
 
@@ -252,7 +299,9 @@
 
 \begin{section}{Multiscatter Capture Formalism}
     In 1987 Andrew Gould showed that in the case of single scattering, the DM capture rate of an astrophysical object can be described analytically \cite{Gould:1987}.
-    Recently, in 2017, Joseph Bramante et al.~extended this formalism to encompass single component, multiscatter capture \cite{Bramante:2017}. In this section I will outline their and others work on the topic.
+    Recently, in 2017, Joseph Bramante et al.~extended this formalism to encompass single component, multiscatter capture. 
+    This formalism was laid out in \cite{Bramante:2017} and necessary corrections to it were presented in \cite{Ilie:2020Comment}.
+    In this section I will outline their and others work on the topic.
 
     Let us consider the transit of a DM particle through a gravitationally bound object such as a star.
     We can approximate the average length of a trajectory through a star as twice its radius, $R_{*}$.
@@ -268,7 +317,7 @@
     $$ C_N = [\text{capture area}] \times [\text{DM flux}] \times [\text{prob. of N collisions}] \times [\text{prob. of capture on N$^{th}$ collision}]. $$
     Treating each of these terms in sequence, we turn our attention to the capture area, or the cross sectional area the star presents to a transiting DM particle, i.e.~$\pi R_*^2$.
 
-    Next, we consider the DM flux and as in \cite{Ilie:2019} I will assume a Maxwell-Boltzmann distribution for the inherent velocities of the DM particles in the locality of the star.
+    Next, we consider the DM flux and as in \cite{Bramante:2017} I will assume a Maxwell-Boltzmann distribution for the inherent velocities of the DM particles in the locality of the star.
     We will define the parameter $u$ as the velocity of the DM particle when it is at an arbitrarily far distance from the star, free from its gravitational influence.
     This distribution can be expressed as a number density of particles for which velocities fall in the range of $u$ to $u+du$:
     \begin{equation}
@@ -284,10 +333,13 @@
     Now we turn our attention to third term $p_N(\tau)$, which describes the probability that a DM particle will undergo exactly N scattering events.
     We can use a Poisson distribution to describe this probability which integrates over all possible scattering angles, $\alpha$
     \begin{equation}
-        p_N(\tau) = \frac{2}{N!}\int_{0}^{1} ae^{-\alpha \tau} (\alpha \tau )^N d\alpha = \frac{2}{\tau^2}\Big(\frac{\gamma(N + 2, \tau)}{N!} \Big).
+        p_N(\tau) = \frac{2}{N!}\int_{0}^{1} ae^{-\alpha \tau} (\alpha \tau )^N d\alpha = \frac{2}{\tau^2}\Big(N + 1 - \frac{\Gamma(N + 2, \tau)}{N!} \Big).
         \label{pnt}
     \end{equation}
-    This integral can be analytically solved as done in \cite{Bramante:2017} \cite{Ilie:2019}. Here, $\gamma(s,x)$ represents the lower incomplete gamma function. 
+    This integral can be analytically solved as done in \cite{Bramante:2017} \cite{Ilie:2019}. Here, $\Gamma(s,x)$ represents the upper incomplete gamma function as defined by
+    \begin{equation}
+        \Gamma(s,x) \equiv \int^\infty_x t^{s-1} e^{-t} dt .
+    \end{equation}
 
     Finally, we treat the fourth term in $C_N$, $g_N(u)$ which describes the probability a DM particle will be captured by its $N$th scattering event.
     For clarity, this is \textbf{not} the probability that a DM particle will experience $N$ scattering events, and then be captured, but instead the probability of capture in the situation that it has undergone $N$ scatters. 
@@ -310,7 +362,7 @@
     \begin{figure}
         \centering
         \includegraphics[width=0.9\textwidth]{Ctot1.pdf}
-        \caption{DM capture rates of Pop.~III stars when $\rho_\chi = 10^{10}$ GeV cm$^{-3}$, $\bar{v} = 10^6$ cm s$^{-1}$, and $\sigma$ is calculated with the XENON1T bounds as seen in Fig. \ref{bounds}. These calculations were preformed with the same Fortran 95 routine that is later embedded in \texttt{MESA} to calculates DM heating.}
+        \caption{DM capture rates of Pop.~III stars when $\rho_\chi = 10^{10}$ GeV cm$^{-3}$, $\bar{v} = 10^6$ cm s$^{-1}$, and $\sigma$ is calculated with the XENON1T bounds as seen in Fig. \ref{bounds}. These calculations were performed with the same Fortran 95 routine that is later embedded in \texttt{MESA} to calculate DM heating.}
     \end{figure}
 
     Combining the second and the fourth terms, it is now possible to express the total capture rate, $C_{tot}$, as an infinite sum across all of the partial capture rates:
@@ -324,7 +376,7 @@
         C_N = \pi R_{*}^2 ~~ p_N(\tau)~~ \frac{\sqrt{6}\rho_{\chi}}{3\sqrt{\pi}\bar{v}m_{\chi}}\Bigg((2\bar{v}^2 + 3v_{esc}^2) - (2\bar{v}^2 + 3v_{N}^2) \exp\Big[\frac{-3(v_N^2 - v_{esc}^2)}{2\bar{v}^2} \Big]    \Bigg). 
         \label{eq22}
     \end{equation}
-    While this formalism will hold for both single scatter and multiscatter regimes, if we plan on only considering the case where $\tau \gg 1$ (i.e.~the multiscatter regime) we can rewrite $C_N$ in an approximative fashion.
+    While this formalism will hold for both single scatter and multiscatter regimes, if we plan on only considering the case where $\tau \gg 1$ (i.e.~the multiscatter regime) we can rewrite $C_N$ in an approximative fashion (see Eq. \ref{CN_aprox}).
     This will become especially useful later when we grapple with some of the issues inherent to numerically evaluating the capture rate.
 
     To summarize, DM particles transiting through an astrophysical object will scatter with the components of that object, here we consider nucleons.
@@ -350,7 +402,7 @@
     In the case of larger DM-nucelon cross sections, one could consider the DM as being in local thermal equilibrium with the baryons of the star, $T_{\chi}(r) = T(r)$.
     The intermediate regime demands a more rigorous modeling of DM in a Maxwell-Boltzmann distribution.
 
-    For rest of this work, I only consider an isothermal DM distribution such as given in both \cite{Freese:2008cap} and \cite{Garani:2017}. So we have the number density of DM as
+    For the rest of this work, I only consider an isothermal DM distribution such as given in both \cite{Freese:2008cap} and \cite{Garani:2017}. So we have the number density of DM as
     \begin{equation}
         n_{\chi}(r) =  n_{c} e^{-m_{\chi} \Phi(r)/kT_c },
         \label{nchi}
@@ -362,22 +414,24 @@
     Here $M(r)$ is the mass enclosed by a shell with radius $r$.
     Using this distribution of captured DM within the star, it then becomes possible to write the heating due to DM as such:
     \begin{equation}
-        Q_m = n_{\chi}^2 \times f \times \Gamma_A \times 2 m_{\chi} ,
+        \int_{*} Q_{V} ~ dV  = f \times \Gamma_A \times 2 m_{\chi} ,
     \end{equation}
     where $f$ is the fraction of annihilation products that thermalize with the star (i.e.~electrons, and photons) as opposed to ones that escape the star without interaction (neutrinos). 
 
-    Since the Dark matter candidate particles we consider are their own anti-partners, heating from self-annihilation is incredibly efficient and $\sim$ 2/3 of the annihilation byproducts will thermalize with the star \cite{Ilie:2019}.
-    For this work I take the standard value of $f = 2/3$ as used in previous works.
-    However it should be noted that in outer regions of the star, if baryonic densities are low enough (such as they may be in the case of dark stars) it is possible that some electrons and photons escape without fully thermalizing with the stellar gas.
+    For this work I take the arbitrary value of $f = 2/3$ as used in previous works \cite{Ilie:2019}.
+    It is important to realize here that this is a model specific choice, and will depend on the specific DM candidate which we are considering. 
+    Moreover, it should be noted that in outer regions of the star, if baryonic densities are low enough (such as they may be in the case of Dark stars) it is possible that some electrons and photons escape without fully thermalizing with the stellar gas.
     In \cite{Rindler-Daller:2020} it is shown that in principle, the assumption of $f = 2/3$ breaks down around $\sim 10^{-8}$ g cm$^{-3}$.
-    However, in my models considering captured and not contracted DM, the entirety of the DM annihilation is occurring near the center of the star, and an assumption of $f=2/3$ instead of a more thorough treatment is appropriate. 
+    However, in my models considering captured and not contracted DM, the entirety of the DM annihilation is occurring near the center of the star, and an assumption of $f=2/3$ (or whatever the fraction of non-neutrino by products we expect from our DM model) is appropriate. 
 
     Turning our attention to the relationship between the DM capture rate and the DM annihilation rate we can write the following differential equation as described in \cite{Ilie:2019}:
     \begin{equation}
         \dot{N}_\chi = C_{tot} - 2\Gamma_A 
         \label{diffeq}
     \end{equation}
-    where $N$ is the number of DM particles captured within the star and $\Gamma_A$ is the DM annihilation rate. In \cite{Freese:2008cap} it is shown that for WIMPs in Pop.~III stars Eq.~\ref{diffeq} quickly reaches equilibrium as compared to the lifetime of the star. I make the assumption that it is safe to take
+    where $N$ is the number of DM particles captured within the star and $\Gamma_A$ is the DM annihilation rate.
+    As we consider the effects of DM evaporation in the next section, we will see that this equation needs modification for DM masses below $m_\chi \simeq 10^2$ Gev.
+    In \cite{Freese:2008cap} it is shown that for WIMPs in Pop.~III stars Eq.~\ref{diffeq} quickly reaches equilibrium as compared to the lifetime of the star. I make the assumption that it is safe to take
     \begin{equation}
         2\Gamma_A = C_{tot} 
         \label{rates}
@@ -403,9 +457,11 @@
 
     To calculate the temperature of this isothermal distribution we can use the volume integral put forth in \cite{Spergel:1985}
     \begin{equation}
-        \int_0^{R_*} r^2 n_p(r) \bigg(\frac{m_p T_\chi + m_\chi T(r)}{m_x m_p} \bigg)^{1/2} (T(r) - T_\chi) \exp \Big[ \frac{-m_\chi \Phi(r)}{k T_\chi} \Big] dV = 0.
+        \int_0^{R_*} r^2 n_p(r) \bigg(\frac{m_p T_\chi + m_\chi T(r)}{m_x m_p} \bigg)^{1/2} (T(r) - T_\chi) \exp \Big[ \frac{-m_\chi \Phi(r)}{k T_\chi} \Big] dr = 0.
         \label{SP85}
     \end{equation}
+    This is a statement of zero net heat flow between the baryons in the star and the captured DM particles.
+    Essentially, lower temperature DM is able to gain energy, and higher temperature DM is able to lose it until the DM reaches an isothermal distribution.
     In \cite{Ilie:2020popiii}, values for DM temperature captured within a Pop.~III star are computed using an $N=3$ polytrope.
     To check that this approximation is appropriate, I model Pop.~III stars of 100 $M_{\odot}$, 300 $M_{\odot}$, and 1000 $M_{\odot}$ in \texttt{MESA} without DM heating.
     In order to correctly model large, radiation dominated stars with inefficient convective envelopes, I use the `MLT++' approach as described in \cite{MESA:2013}.
@@ -427,7 +483,7 @@
     \end{figure}
 
     Using the temperature of the DM distribution we are now able to calculate an evaporation rate as a function of $m_\chi$.
-    In Andrew Gould's 1987 paper on WIMPs in the sun, he derives a closed analytical form for the evaporation rate for the shell evaporation rate $R(w|v)$ \cite{Gould:1987}. 
+    In Andrew Gould's 1987 paper on WIMPs in the Sun, he derives a closed analytical form for the evaporation rate for the shell evaporation rate $R(w|v)$ \cite{Gould:1987}. 
     To do this, Gould uses a truncated Maxwell-Boltzmann distribution which I reproduce here with the \textbf{correct} normalization factor as pointed out in \cite{Ilie:2020popiii}:
     \begin{equation}
         f(w) = \frac{\exp[-w^2 / v_\chi^2] ~ \Theta(v_c - w) }{\pi^{3/2} ~ v_\chi^3 \bigg(\text{erf}[v_c / v_\chi] - \frac{2 v_c}{\pi v_{\chi}} \exp[-v_c^2 / v_{\chi}^2 ] \bigg)}.
@@ -538,7 +594,7 @@
 
     Therefore, for a given radial cell within \texttt{MESA} we can express the energy production rate due to DM annihilation as: 
     \begin{equation}
-        \int_{cell} Q_{V} ~ dV = \frac{\int_{cell} r^2 ~n_{\chi}(r)^2~ dV}{\int_* r^2~ n_{\chi}(r)^2 ~dV} \times C_{tot} \times f \times m_{chi}
+        \int_{cell} Q_{V} ~ dV = \frac{\int_{cell} r^2 ~n_{\chi}(r)^2~ dr}{\int_* r^2~ n_{\chi}(r)^2 ~dr} \times C_{tot} \times f \times m_{chi}
         \label{qm}
     \end{equation}
     By normalizing the captured DM distribution, we are provided with a fraction by which we can multiply the energy production rate for the whole star, while also avoiding calculating the central DM number density.
@@ -546,7 +602,7 @@
 
     Finally, since \texttt{MESA}'s \texttt{extra\_heat} interface takes as input an array of energy rate mass density for all the cells in the star, we can express the energy production rate for a given cell per unit mass as follows: 
     \begin{equation}
-        Q_m = \frac{\int_{cell} r^2 \exp[-2m_{\chi} \Phi(r) / kT_c]~dV}{\int_{*} r^2 \exp[-2m_{\chi} \Phi(r) / kT_c]~dV} \times \frac{C_{tot} f m_{\chi}}{m_{cell}}.
+        \frac{\int_{cell} Q_{V} ~ dV}{m_{cell}}  = \frac{\int_{cell} r^2 \exp[-2m_{\chi} \Phi(r) / kT_c]~dr}{\int_{*} r^2 \exp[-2m_{\chi} \Phi(r) / kT_c]~dr} \times \frac{C_{tot} f m_{\chi}}{m_{cell}}.
         \label{Qmpercell}
     \end{equation}
     As part of the \texttt{other\_energy\_implicit} hook, \texttt{MESA} also has inputs for partial derivatives of the \texttt{extra\_heat} profile, with respect to density, radius, and temperature. These allow for the fully self-consistent addition of heat to \texttt{MESA}.
@@ -582,7 +638,7 @@
     The only exception is when running \texttt{MESA} with a manually increased number of grid points.
 
     With these assumptions made, in each timestep I proceed to read stellar characteristics from the \texttt{MESA} model. I sum the number of scatterings, $N$, across the partial capture rate as described by Eq.~\ref{eq22} to the cutoff point, $N_{cut}$.
-    By statistically relating the point at which the total capture rate sum converges to the optical depth $\tau$, one can see that $N_{cut}$ equates roughly with $\tau$.
+    By statistically relating the point at which the total capture rate sum converges to the optical depth $\tau$, one can see that $N_{cut}$ equates roughly with $\tau$ as shown in \cite{Ilie:2019}.
     Previous numerical implementations of this capture sum involved a cutoff criterion based on the relative values of the most recently summed terms.
     However, in order to allow the sum to be written in a thread-safe manner and parallelized with the OpenMP interface, I use the cutoff criterion $N_{cut} = 2\tau$ as a means of preserving accuracy without incurring too much extra computational expense.
     For large $\tau$, being able to calculate the sum in a parallel manner on up to 32 threads (using Colgate University's Turing compute cluster) is invaluable in allowing \texttt{MESA} models to run in a reasonable amount of time.
@@ -597,7 +653,7 @@
     Since 170!~is the largest factorial capable of being stored by a 64-bit floating point, we are effectively limited to evaluating the sum of $C_N$, of which $p_N(\tau)$ is a term, at values of $\tau$ below 170.
     This issue can be curtailed using the approximate form
     \begin{equation}
-        p_N(\tau)  = \frac{2}{\tau^2} (N+1) \Theta(\tau - N),
+        p_N(\tau)  \simeq \frac{2}{\tau^2} (N+1) \Theta(\tau - N),
     \end{equation}
     instead of Eq.~\ref{pnt} whenever $\tau \gg 1$ \cite{Ilie:2020popiii}.
     This form is derived from the right hand side of Eq.~\ref{pnt} by applying the definition of the gamma function.
@@ -608,7 +664,8 @@
     For most Pop. III stars, at DM masses above $10^{17}$ GeV there is a considerable loss-of-significance error from the subtraction of $v_N$ and $v_{esc}$ in the exponential term of Eq.~\ref{eq22}.
     To overcome this difficultly inherent in doing large number arithmetic with 64-bit variables, I use the following approximation put forth in \cite{Bramante:2017}:
     \begin{equation}
-        C_N = \sqrt{24 \pi}~ p_N(\tau) ~ G ~ \frac{\rho_{\chi}}{m_{\chi}} ~M_{*} R_{*} ~\frac{1}{\bar{v}}~ \Bigg(1 - \Big(1 + \frac{2A_N^2 \bar{v}^2}{3v_{esc}^2}\Big)\exp[-A_N^2] \Bigg), 
+        C_N \simeq \sqrt{24 \pi}~ p_N(\tau) ~ G ~ \frac{\rho_{\chi}}{m_{\chi}} ~M_{*} R_{*} ~\frac{1}{\bar{v}}~ \Bigg(1 - \Big(1 + \frac{2A_N^2 \bar{v}^2}{3v_{esc}^2}\Big)\exp[-A_N^2] \Bigg), 
+        \label{CN_aprox}
     \end{equation}
     where the approximation holds true for the limit that $v_{esc} \gg \bar{v}, m_{\chi} \gg m$, and $A_N^2$ is defined
     $$A_N^2 = \frac{3v_{esc}^2 N m_p}{\bar{v} m_{\chi}}.$$
@@ -627,7 +684,7 @@
 
     The Eddington limit is the maximum luminosity at which a star of a given mass can shine.
     Fundamentally this is a statement of hydrostatic equilibrium, as increasing the luminosity, and thus the outward radiation pressure, would drive super-Eddington winds, expelling material from the surface of the star until an equilibrium is once again reached.
-    The Eddington limit can be expressed in terms of the opacity $\kappa$ and stellar mass $M_*$
+    The Eddington limit can be expressed in terms of the gravitational constant $G$, opacity $\kappa$ and stellar mass $M_*$
     \begin{equation}
         L_{Edd} = \frac{4\pi G M_*}{\kappa},
         \label{edd}
@@ -637,7 +694,7 @@
         L_{*} = L_{nuc} + L_\chi \leq \frac{4\pi G M_*}{\kappa}. 
         \label{ineq}
     \end{equation}
-    From Eq.~\ref{qm} one can see that the total stellar heating, and thus $L_\chi$, will be
+    From Eq.~\ref{qm} one can see that the total stellar heating, and thus luminosity from Dark matter, $L_\chi$, will be
     \begin{equation}
     L_\chi = \int_{*} Q_{V} ~ dV = C_{tot} \times f \times m_{chi}.
     \end{equation}
@@ -648,7 +705,7 @@
 
     In this work I take a slightly more complex approach, I use \texttt{MESA} to model 78 different Pop. III stars, 72 which were augmented by DM heating, and 6 which were not augmented so they function as controls.
     I consider a range of stellar masses $M_*: \{100 \to 1000 M_\odot \}$, and DM parameters $\rho_\chi: \{10^{13} \to 10^{16}$ GeV cm$^{-3}\}$, $m_\chi: \{10^4 \to 10^{14}$ GeV $\}$, and $\sigma: \{10^{-46} \to 10^{-34}$ cm$^2\}$. 
-    I explore a logarithmically spaced grid across $m_\chi$ and $\rho_\chi$, and I fix $\sigma$ to $m_\chi$ using
+    I explore a logarithmically spaced grid across $m_\chi$ and $\rho_\chi$, and I fix $\sigma$ to $m_\chi$ using the deepest exclusion bounds found from XENON1T:
     \begin{equation}
         \sigma  = 1.26 \times 10^{-40} \bigg(\frac{m_\chi}{10^8 \text{ GeV}}\bigg) \text{ cm}^2.
     \end{equation}
@@ -744,7 +801,7 @@
 
     While modeling the effects of adiabatic contraction (AC), another method by which DM may heat a star, it has been shown that the beginning of nuclear burning in proto-Pop.~III stars can be prevented entirely if heating from AC is significant enough to form a dark star.
     Moreover, during the dark star phase, mass can continue to accrete onto the star so long as the DM reservoir from which AC draws does not run out.
-    In \cite{Freese:2016dark}, work preformed with \texttt{MESA}'s \texttt{run\_star\_extras.f} routine in a similar fashion to my own, has shown that it may be possible to form dark stars with masses up to $10^6 M_{\odot}$ and the subsequent stars are significantly hotter, brighter, and radially smaller then predicted by previous work \cite{Rindler-Daller:2015} \cite{Rindler-Daller:2020}.
+    In work performed with \texttt{MESA}'s \texttt{run\_star\_extras.f} routine in a similar fashion to my own, has shown that it may be possible to form dark stars with masses up to $10^6 M_{\odot}$ and the subsequent stars are significantly hotter, brighter, and radially smaller then predicted by previous work \cite{Rindler-Daller:2015} \cite{Rindler-Daller:2020}.
     \begin{figure}
         \centering
         \includegraphics[trim={0 0.2cm 0 0.6cm},clip,width=0.8\textwidth]{hr.pdf}
@@ -759,9 +816,9 @@
     However, once this density is achieved DM heating from capture will almost immediately outstrip nuclear heating.
     Moreover, I find the same phenomena of super massive dark star formation as in \cite{Rindler-Daller:2015}: at appropriately high DM densities stars powered by captured DM will continue to accrete mass, until potentially even $10^7 M_{\odot}$.
 
-    The key difference between these models and the previous section's is the presence of continuing cold accretion.
+    The key difference between these models and the previous sections is the presence of continuing cold accretion.
     This accretion allows the star to stay well below the Eddington limit for its mass.
-    Further work needs to be undertaken to compare these models with the previous section's to understand exactly how and why they diverge in behavior.
+    Further work needs to be undertaken to compare these models with the previous sections to understand exactly how and why they diverge in behavior.
 
     If these models represent something truly physical, objects of this size and brightness would be ideal candidates for observation by the soon to be launched James Webb Space Telescope.
     Not only would dark stars represent a fascinating new astrophysical object to study, but they could serve as cosmological standard candles, instruments for probing the characteristics of Dark matter, or precursors to intermediate or supermassive black holes.
